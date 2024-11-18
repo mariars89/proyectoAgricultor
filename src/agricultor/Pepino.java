@@ -1,5 +1,5 @@
 package agricultor;
 
-public class Pepino {
+public class Pepino extends Thread{
 
 }
