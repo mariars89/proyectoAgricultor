@@ -1,5 +1,5 @@
 package agricultor;
 
-public class Melones extends Thread {
+public class Melon extends Thread {
 
 }
