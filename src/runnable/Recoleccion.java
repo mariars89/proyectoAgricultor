@@ -1,4 +1,4 @@
-package agricultor;
+package runnable;
 
 public interface Recoleccion {
 	
