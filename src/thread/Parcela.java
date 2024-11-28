@@ -1,63 +1,73 @@
 package thread;
 
 
-//La clase Parcela implementa la interfaz Recoleccion. 
-//Gestiona los recursos de pepinos y melones con lógica básica para recolección.
+// Sirve como contenedor para almacenar la cantidad de pepinos y melones.
+//Zona Crítica (recursos compartidos)
 
-public class Parcela implements Recoleccion {
+public class Parcela {
     
 	//Atributos
-	private int pepinos;
-    private int melones;
+	private int numPepinos = 0; // Número de pepinos disponibles para la recolección.
+    private int numMelones = 0;
+    private int pepinosPlantados = 0;
+    private int melonesPlantados = 0;
 
-    
-    //Constructor
-    public Parcela(int pepinos, int melones) {
-        this.pepinos = pepinos;
-        this.melones = melones;
+   
+    // Método para simular el crecimiento de un pepino en la parcela
+    public void crecerPepino() {
+        
+    	System.out.println("Ha crecido un pepino");
+        numPepinos++;
+        pepinosPlantados++;
     }
 
-    //Método para recoger pepinos
-    @Override
-    public boolean recogerPepinos() {
+    // Método para simular el crecimiento de un melón en la parcela
+    public void crecerMelon() {
         
-    	if (pepinos > 0) {
-            System.out.println("Recogiendo varios pepinos.");
-            pepinos--;
-            
-            try {
-                Thread.sleep(500); // Simula el tiempo de recolección de pepinos
-            
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            System.out.println("Terminó de recoger pepinos. Pepinos restantes: " + pepinos);
-            return true;
-        }
-        return false;
+    	System.out.println("Ha crecido un melón");
+        numMelones++;
+        melonesPlantados++;
     }
 
     
-    //Método para recoger melones
-    @Override
-    public boolean recogerMelon() {
+    // Método para simular la recolección de pepinos
+    public void recogerPepinos() {
         
-    	if (melones > 0) {
+    	if (numPepinos > 0) {
             
-    		System.err.println("Recogiendo un melón.");
-            melones--;
-            
-            try {
-                Thread.sleep(1000); // Simula el tiempo de recolección de melones
-            
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            
-            System.err.println("Terminó de recoger un melón. Melones restantes: " + melones);
-            return true;
+    		System.out.println("----------------------------------------------------");
+    		System.out.println("Agricultor ha recogido " + numPepinos + " pepinos");
+    		System.out.println("----------------------------------------------------");
+            numPepinos = 0;
         }
-        return false;
+    }
+
+    // Método para simular la recolección de melones
+    public void recogerMelon() {
+        
+    	if (numMelones > 0) {
+            
+    		System.out.println("----------------------------------------------------");
+    		System.out.println("Agricultor ha recogido un melón");
+    		System.out.println("----------------------------------------------------");
+            numMelones--;
+        }
+    }
+    
+    //Getters
+    public int getPepinos() {
+        return numPepinos;
+    }
+
+    public int getMelones() {
+        return numMelones;
+    }
+
+    public int getPepinosPlantados() {
+        return pepinosPlantados;
+    }
+
+    public int getMelonesPlantados() {
+        return melonesPlantados;
     }
 }

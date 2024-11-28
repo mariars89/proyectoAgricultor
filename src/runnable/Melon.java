@@ -1,31 +1,33 @@
 package runnable;
 
-//El hilo encargado de recolectar melones. 
-//Usa la interfaz Recoleccion.
+//Clase Productor de melones, implementando la interfaz Runnable
 public class Melon implements Runnable {
-    
-    // Atributos
-    private Recoleccion parcela;
-    private String hiloMelon; 
+ 
+	 // Atributos
+	 private Parcela zonaCompartida;
+	
+	 // Constructor
+	 public Melon(Parcela zonaCompartida) {
+	     this.zonaCompartida = zonaCompartida;
+	 }
+ 
+ 
+	 @Override
+	 public void run() {
+	     
+	     // El productor de melones sigue creciendo melones hasta que se hayan plantado 20
+	     while (zonaCompartida.getMelonesPlantados() < 20) {
+	         
+	         try {
+	             // Simula el crecimiento de melones
+	             Thread.sleep((long) (Math.random() * 1000)); 
+	             zonaCompartida.crecerMelon();
+	         
+	         } catch (InterruptedException e) {
+	             e.printStackTrace();
+	         }
+	     }
+	 }
 
-    // Constructor
-    public Melon(Recoleccion parcela, String nombre) {
-        this.parcela = parcela;
-        this.hiloMelon = nombre;
-    }
 
-    @Override
-    public void run() {
-        
-    	// El ciclo se ejecuta mientras haya melones
-        while (true) {
-            System.out.println(hiloMelon + " está recogiendo melones.");
-            
-            if (!parcela.recogerMelon()) {
-                break;
-            }
-            System.out.println("Recogiendo un melón.");
-        }
-        System.out.println(hiloMelon + " ha terminado de recoger melones.");
-    }
 }

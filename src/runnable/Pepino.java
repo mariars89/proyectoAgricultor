@@ -1,32 +1,29 @@
 package runnable;
 
-
-//El hilo encargado de recolectar pepinos. 
-//Utiliza la interfaz Recoleccion para operar sobre los recursos.
+// Clase Productor de pepinos que implementa Runnable
 public class Pepino implements Runnable {
-    
+  
     // Atributos
-    private Recoleccion parcela;
-    private String hiloPepino; 
+    private Parcela zonaCompartida;
 
     // Constructor
-    public Pepino(Recoleccion parcela, String nombre) {
-        this.parcela = parcela;
-        this.hiloPepino = nombre;
+    public Pepino(Parcela zonaCompartida) {
+        this.zonaCompartida = zonaCompartida;
     }
 
     @Override
     public void run() {
-        
-    	// El ciclo se ejecuta mientras haya pepinos
-        while (true) {
-            System.out.println(hiloPepino + " está recogiendo pepinos.");
+        // Mientras no haya 50 pepinos plantados, el hilo seguirá ejecutando el crecimiento
+        while (zonaCompartida.getPepinosPlantados() < 50) {
             
-            if (!parcela.recogerPepinos()) {
-                break;
+            try {
+                // Simula el crecimiento de pepinos (duerme por un tiempo aleatorio)
+                Thread.sleep((long) (Math.random() * 500));
+                zonaCompartida.crecerPepino();
+            
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
-            System.out.println("Recogiendo varios pepinos.");
         }
-        System.out.println(hiloPepino + " ha terminado de recoger pepinos.");
     }
 }

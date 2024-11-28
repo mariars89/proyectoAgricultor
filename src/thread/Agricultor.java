@@ -1,33 +1,32 @@
 package thread;
 
-
-//El programa principal que inicializa los recursos y lanza los hilos.
-public class Agricultor {
+//Clase Consumidor
+public class Agricultor extends Thread {
     
-	public static void main(String[] args) {
+	//Atributos
+	private Parcela zonaCompartida;
+
+    //Constructor
+	public Agricultor(Parcela zonaCompartida) {
+        this.zonaCompartida = zonaCompartida;
+    }
+
+    public void run() {
         
-		// Inicializa la parcela con 10 pepinos y 5 melones
-        Parcela parcela = new Parcela(10, 5);
-
-        // Crea hilos para recoger pepinos y melones con nombres personalizados
-        Pepino hiloPepinos = new Pepino(parcela, "Hilo de Pepinos");
-        Melon hiloMelones = new Melon(parcela, "Hilo de Melones");
-
-        // Inicia los hilos
-        hiloPepinos.start();
-        hiloMelones.start();
-
-        // Espera a que ambos hilos terminen
-        try {
-            hiloPepinos.join();
-            hiloMelones.join();
-        
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+    	// El agricultor seguirá trabajando hasta que se hayan recogido al menos 50 pepinos y 20 melones
+    	while (zonaCompartida.getPepinosPlantados() < 50 || zonaCompartida.getMelonesPlantados() < 20) {
+            
+    		zonaCompartida.recogerPepinos();
+            zonaCompartida.recogerMelon();
+            
+         // Espera aleatoria entre 0 y 1500 ms para simular el tiempo que el agricultor tarda 
+         //en hacer otras tareas
+            try {
+                sleep((long) (Math.random() * 1500));
+            
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
-
-        System.out.println("----------------------------------------------------------------");
-        System.out.println("Recolección completada. Todos los productos han sido recogidos.");
-        System.out.println("-----------------------------------------------------------------");
     }
 }
