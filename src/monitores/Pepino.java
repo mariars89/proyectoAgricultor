@@ -11,6 +11,7 @@ public class Pepino extends Thread {
 	public void run() {
 		while(zonaCompartida.getPepinosPlantados()<50) {
 			try {
+				// Espera un tiempo aleatorio y crece
 				sleep((long) (Math.random()*500));
 				zonaCompartida.crecerPepino();
 			} catch (InterruptedException e) {

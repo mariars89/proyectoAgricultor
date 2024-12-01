@@ -11,6 +11,7 @@ public class Melon extends Thread {
 	public void run() {
 		while(zonaCompartida.getMelonesPlantados()<20) {
 			try {
+				// Espera un tiempo aleatorio y crece
 				sleep((long) (Math.random()*1000));
 				zonaCompartida.crecerMelon();
 			} catch (InterruptedException e) {
