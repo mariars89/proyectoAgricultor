@@ -29,8 +29,8 @@ El proyecto está desarrollado en Java, utilizando conceptos de programación co
 
 Colaboradores 🤝
 
-Nombre del Colaborador Asier Rodríguez
+Nombre: Asier Rodríguez
 
-Nombre del Colaborador Iván Gulín
+Nombre: Iván Gulín
 
-María Rosete
+Nombre: María Rosete
